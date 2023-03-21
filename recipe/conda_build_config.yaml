@@ -15,6 +15,6 @@ numpy:
  - '1.16'
 
 MACOSX_DEPLOYMENT_TARGET:  # [osx]
-  - '10.10'  # [osx]
+  - '10.12'  # [osx]
 MACOSX_SDK_VERSION:  # [osx]
-  - '10.10'  # [osx]
+  - '10.12'  # [osx]

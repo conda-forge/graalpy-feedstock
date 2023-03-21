@@ -1,9 +1,9 @@
 # the graalpy version implies the below versions, so update these together
-{% set version = "22.3.2" %}
-{% set gp_python_version = "3.8.5" %}
-{% set mx_version = "6.9.7" %}
-{% set java_version = "17.0.5+8" %}
-{% set jvmci_version = "22.3-b08" %}
+{% set version = "23.0.0" %}
+{% set gp_python_version = "3.10.8" %}
+{% set mx_version = "6.18.0" %}
+{% set java_version = "17.0.7+4" %}
+{% set jvmci_version = "23.0-b09" %}
 
 {% if graalpy_distribution is not defined %}
 {% set graalpy_distribution = "standalone" %}
@@ -22,36 +22,31 @@ package:
 
 source:
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-linux-aarch64.tar.gz  # [build_platform == "linux-aarch64"]
-    sha256: 0e27931347df0863e863ef2030fc7fc5a712e0ddce721d2e23592ff5c3bfda76  # [build_platform == "linux-aarch64"]
+    sha256: 22129ac90aa9e747509a095564300c1e9a2191267fc1dd6009464919ada56184  # [build_platform == "linux-aarch64"]
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-linux-amd64.tar.gz  # [build_platform == "linux-64"]
-    sha256: 2e6d80438056b87921dd7725e829a2a91d9dd44a2decf52276739311b78de7bb  # [build_platform == "linux-64"]
+    sha256: fa69a21111e34a6bac4550ef6296987df19f0c09ae90c30f05f1a28110cdf260  # [build_platform == "linux-64"]
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-darwin-amd64.tar.gz  # [osx and x86_64]
-    sha256: 99ee23bbcddd3348d2cf3d4ea5e0e32f1fbf24291b33f1dba561a3110e1aad83  # [osx and x86_64]
+    sha256: a43e5365ed29b8e7de3a1d12f804a2cf85d8a0dbdc7814048eef17360df0e5e8  # [osx and x86_64]
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-darwin-aarch64.tar.gz  # [osx and arm64]
-    sha256: 32df7c956d7fde693b9ac97a90fe0145a73f596d879e360a1fe1953748c8ecde  # [osx and arm64]
+    sha256: bdf443d32f7c0fc24627926ef9b99340793ce376335fefd91d8acbed9ac6b26c  # [osx and arm64]
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-windows-amd64.tar.gz  # [win64]
-    sha256: 3ddfbca8f0803e5acbf5b03e5bff3db1ce8c7cbeb1a44dbd8cbffae7c69e7820  # [win64]
+    sha256: e6d6540352d227fa6592d03af32bbbeec8ec646a8b465547cf6cb4cd9bfbb0b1  # [win64]
     folder: labsjdk
   - url: https://github.com/graalvm/mx/archive/refs/tags/{{ mx_version }}.zip
-    sha256: 6719145418c9846fb75686190359c69018ac5e61af113aba35e8542fdf09e09c
+    sha256: b56529906a2416ed93e1083edff22b8d98c5741f87444e37ddb035cc34dfe398
     folder: mx
-    patches:
-      - patches/mx-keep-rpath-origin-variable.patch
-      - patches/mx-pypy-support.patch
-  - url: https://github.com/oracle/graal/archive/refs/tags/vm-ce-{{ version }}.zip
-    sha256: 8ac8ffad881fc9929c338f2ec16a3226fdcdba2963355921dfd937b088dc910f
+  # - url: https://github.com/oracle/graal/archive/refs/tags/vm-ce-{{ version }}.zip
+  #   sha256: 5e65db23299ba21ff6a412eb1ab840b3c05be3d047b0d73eb67b05a5ba3ea2fb
+  - git_url: https://github.com/oracle/graal.git
+    git_rev: release/graal-vm/{{ graalpy_maj_min }}
     folder: graal
     patches:
-      - patches/sulong-disable-tests.patch
-      - patches/sulong-relative-rpath.patch
-  - url: https://github.com/oracle/graalpython/archive/refs/tags/vm-ce-{{ version }}.zip
-    sha256: 74ab48769e63b7fafa5eaac0f8062e48d188567d2abd0e4af91871e48a5200d0
+      - patches/sulong-without-tck.patch
+  # - url: https://github.com/oracle/graalpython/archive/refs/tags/vm-ce-{{ version }}.zip
+  #   sha256: 9a01e90a9a0edefb1c99583413936408239c9d4c67a65e142647f30558e8be6a
+  - git_url: https://github.com/oracle/graalpython.git
+    git_rev: release/graal-vm/{{ graalpy_maj_min }}
     folder: graalpython
-    patches:
-      - patches/graalpy-honour-sysroot.patch
-      - patches/graalpy-reduce-image-build-xmx.patch
-      - patches/graalpy-fix-lzma.patch  # [osx]
-      - patches/graalpy-graalvm-version-tag.patch
 
 build:
   number: {{ build_num }}
@@ -93,7 +88,7 @@ outputs:
         - libzlib
         - patch
         - curl
-        - __osx >={{ MACOS_DEPLOYMENT_TARGET|default("10.10") }}  # [osx]
+        - __osx >={{ MACOS_DEPLOYMENT_TARGET|default("10.12") }}  # [osx]
         - python_abi {{ python_maj_min }}.* *_graalpy{{ graalpy_maj_min.replace('.', '') }}_{{ python_maj_min.replace('.', '') }}_{{ graalpy_abi }}
       run_constrained:
         - python {{ gp_python_version }} {{ build_num }}_{{ graalpy_abi }}{{ graalpy_maj_min.replace('.', '') }}_graalpy

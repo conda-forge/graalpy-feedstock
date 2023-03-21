@@ -7,7 +7,7 @@ if [ `uname` = "Darwin" ]; then
 fi
 
 # this needs to be updated when the target python version of graalpy changes
-PY_VERSION=3.8
+PY_VERSION=3.10
 
 # set up paths for mx build
 export MX_DIR=$SRC_DIR/mx
@@ -50,7 +50,7 @@ git -C $SRC_DIR/graal commit --allow-empty -m "dummy commit"
 # released graal/mx/mx.vm/ce env file
 export MX_PYTHON=${BUILD_PREFIX}/bin/pypy3
 export DYNAMIC_IMPORTS=/compiler,/regex,/sdk,/substratevm,/sulong,/tools,/truffle,graalpython
-export COMPONENTS=cmp,cov,dap,dis,gu,gvm,icu4j,ins,insight,insightheap,lg,llp,llrc,llrl,llrn,lsp,nfi-libffi,pbm,pmh,poly,polynative,pro,pyn,pynl,rgx,sdk,tfl,tflm
+export COMPONENTS=cmp,cov,dap,dis,gu,gvm,icu4j,ins,insight,insightheap,jss,lg,llp,llrc,llrl,llrn,lsp,nfi-libffi,pbm,pmh,poly,polynative,pro,pyn,pynl,rgx,sdk,tfl,tflm
 if [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
     export NATIVE_IMAGES=lib:pythonvm,lib:jvmcicompiler,graalvm-native-binutil,graalvm-native-clang,graalvm-native-clang-cl,graalvm-native-clang++,graalvm-native-ld
 else
@@ -67,7 +67,7 @@ fi
 
 # run the build
 mx graalvm-show
-mx build
+mx --generate-debuginfo= build
 
 if [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
     # move the standalone build artifact into $PREFIX
