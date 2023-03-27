@@ -50,7 +50,7 @@ source:
 
 build:
   number: {{ build_num }}
-  skip: true  # [win or osx]
+  skip: true  # [win]
 
 outputs:
   - name: graalpy
