@@ -3,7 +3,7 @@
 {% set gp_python_version = "3.10.8" %}
 {% set mx_version = "6.18.0" %}
 {% set java_version = "17.0.7+4" %}
-{% set jvmci_version = "23.0-b09" %}
+{% set jvmci_version = "23.0-b10" %}
 
 {% if graalpy_distribution is not defined %}
 {% set graalpy_distribution = "standalone" %}
@@ -22,15 +22,15 @@ package:
 
 source:
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-linux-aarch64.tar.gz  # [build_platform == "linux-aarch64"]
-    sha256: 22129ac90aa9e747509a095564300c1e9a2191267fc1dd6009464919ada56184  # [build_platform == "linux-aarch64"]
+    sha256: 401e3dd488c4f4b14823fa4a34e7b2d9d5e61d7a6d13c19b6cea6bd48ce090f8  # [build_platform == "linux-aarch64"]
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-linux-amd64.tar.gz  # [build_platform == "linux-64"]
-    sha256: fa69a21111e34a6bac4550ef6296987df19f0c09ae90c30f05f1a28110cdf260  # [build_platform == "linux-64"]
+    sha256: 535b9302daa8a054d5419c4c38b2a056205cacb341ff768b19929bcb6e0edeef  # [build_platform == "linux-64"]
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-darwin-amd64.tar.gz  # [osx and x86_64]
-    sha256: a43e5365ed29b8e7de3a1d12f804a2cf85d8a0dbdc7814048eef17360df0e5e8  # [osx and x86_64]
+    sha256: 0daed0d320ba9173e5ee76da13c554539a65f71ca19ab60c30ec2508799befec  # [osx and x86_64]
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-darwin-aarch64.tar.gz  # [osx and arm64]
-    sha256: bdf443d32f7c0fc24627926ef9b99340793ce376335fefd91d8acbed9ac6b26c  # [osx and arm64]
+    sha256: cb5b5e600e6ef3642c3d1df99d693537690372017f31cd0943a5b97f86727e42  # [osx and arm64]
   - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-windows-amd64.tar.gz  # [win64]
-    sha256: e6d6540352d227fa6592d03af32bbbeec8ec646a8b465547cf6cb4cd9bfbb0b1  # [win64]
+    sha256: fb349ddc10bc1cebe5e95460859bfcb878da3be43481e914ab3894c689f552e3  # [win64]
     folder: labsjdk
   - url: https://github.com/graalvm/mx/archive/refs/tags/{{ mx_version }}.zip
     sha256: b56529906a2416ed93e1083edff22b8d98c5741f87444e37ddb035cc34dfe398
