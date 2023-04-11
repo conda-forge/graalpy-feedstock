@@ -95,15 +95,29 @@ if [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
     rm $PREFIX/LICENSE_GRAALPY.txt $PREFIX/THIRD_PARTY_LICENSE_GRAALPY.txt
 else
     GRAALVM=`mx graalvm-home`
+    if [ -n "${MACOS}" ]; then
+        GRAALVM=${GRAALVM%/Contents/Home}
+    fi
     mkdir -p $PREFIX/lib/jvm
-    cp -r $GRAALVM $PREFIX/lib/jvm/
-    GRAALVM_PREFIX=$PREFIX/lib/jvm/${GRAALVM##*/}
+    cp -r $GRAALVM/* $PREFIX/lib/jvm/
+    GRAALVM_PREFIX=$PREFIX/lib/jvm/
 
-    # symlink binaries
+    # just symlink binaries
     mkdir -p $PREFIX/bin/
     for i in $GRAALVM_PREFIX/bin/*; do
         if [ -x "$i" ]; then
             ln -sf "$i" $PREFIX/bin/
+        fi
+    done
+
+    # for all binaries that exist in nested binary directories and that are
+    # either copied or symlinked to the main bin directory, create symlinks to
+    # the actual binary locations
+    for i in $GRAALVM_PREFIX/*/*/bin/*; do
+        if [ -x "$i" ]; then
+            if [ -e "${GRAALVM_PREFIX}/bin/${i##*/}" ]; then
+                ln -sf "$i" $PREFIX/bin/
+            fi
         fi
     done
 
