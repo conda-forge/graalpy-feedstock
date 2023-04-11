@@ -100,9 +100,6 @@ if [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
     rm $PREFIX/LICENSE_GRAALPY.txt $PREFIX/THIRD_PARTY_LICENSE_GRAALPY.txt
 else
     GRAALVM=`mx graalvm-home`
-    if [ -n "${MACOS}" ]; then
-        GRAALVM=${GRAALVM%/Contents/Home}
-    fi
     mkdir -p $PREFIX/lib/jvm
     cp -r $GRAALVM/* $PREFIX/lib/jvm/
     GRAALVM_PREFIX=$PREFIX/lib/jvm/
