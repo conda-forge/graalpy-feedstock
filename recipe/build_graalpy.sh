@@ -51,10 +51,7 @@ git -C $SRC_DIR/graal commit --allow-empty -m "dummy commit"
 export MX_PYTHON=${BUILD_PREFIX}/bin/pypy3
 export DYNAMIC_IMPORTS=/compiler,/regex,/sdk,/substratevm,/sulong,/tools,/truffle,graalpython
 export COMPONENTS=cmp,cov,dap,dis,gu,gvm,icu4j,ins,insight,insightheap,jss,lg,llp,llrc,llrl,llrn,lsp,nfi-libffi,pbm,pmh,poly,polynative,pro,pyn,pynl,rgx,sdk,tfl,tflm
-if [ -n "${MACOS}" ]; then
-    # mac os CI machines always have enough RAM to build pythonvm svm images
-    export NATIVE_IMAGES=lib:pythonvm,lib:jvmcicompiler,graalvm-native-binutil,graalvm-native-clang,graalvm-native-clang-cl,graalvm-native-clang++,graalvm-native-ld
-elif [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
+if [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
     # standalones need svm images for python
     export NATIVE_IMAGES=lib:pythonvm,lib:jvmcicompiler,graalvm-native-binutil,graalvm-native-clang,graalvm-native-clang-cl,graalvm-native-clang++,graalvm-native-ld
 else
