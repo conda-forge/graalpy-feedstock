@@ -1,7 +1,7 @@
 # the graalpy version implies the below versions, so update these together
 {% set version = "23.0.0" %}
 {% set gp_python_version = "3.10.8" %}
-{% set mx_version = "6.18.0" %}
+{% set mx_version = "6.23.8" %}
 {% set java_version = "17.0.7+4" %}
 {% set jvmci_version = "23.0-b10" %}
 
@@ -33,7 +33,7 @@ source:
     sha256: fb349ddc10bc1cebe5e95460859bfcb878da3be43481e914ab3894c689f552e3  # [win64]
     folder: labsjdk
   - url: https://github.com/graalvm/mx/archive/refs/tags/{{ mx_version }}.zip
-    sha256: b56529906a2416ed93e1083edff22b8d98c5741f87444e37ddb035cc34dfe398
+    sha256: 4fb692a1ec34dfc957832a948a41b4d0238377990a0098daf83240e837638cfe
     folder: mx
   # - url: https://github.com/oracle/graal/archive/refs/tags/vm-ce-{{ version }}.zip
   #   sha256: 5e65db23299ba21ff6a412eb1ab840b3c05be3d047b0d73eb67b05a5ba3ea2fb
