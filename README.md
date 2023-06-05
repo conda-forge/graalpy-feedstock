@@ -1,11 +1,11 @@
-About graalpy
-=============
+About graalpy-feedstock
+=======================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/graalpy-feedstock/blob/main/LICENSE.txt)
 
 Home: http://graalvm.org/python
 
 Package license: UPL-1.0
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/graalpy-feedstock/blob/main/LICENSE.txt)
 
 Summary: GraalPy is a high-performance Python implementation on GraalVM. See https://conda-forge.org/blog/posts/2020-03-10-pypy for more information about using it in conda, replacing PyPy/pypy/pp with GraalPy/graalpy/gp in commands.
 
