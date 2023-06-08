@@ -1,5 +1,5 @@
 # the graalpy version implies the below versions, so update these together
-{% set version = "22.3.2" %}
+{% set version = "23.0.0" %}
 {% set gp_python_version = "3.8.5" %}
 {% set mx_version = "6.9.7" %}
 {% set java_version = "17.0.5+8" %}
@@ -39,13 +39,13 @@ source:
       - patches/mx-keep-rpath-origin-variable.patch
       - patches/mx-pypy-support.patch
   - url: https://github.com/oracle/graal/archive/refs/tags/vm-ce-{{ version }}.zip
-    sha256: 8ac8ffad881fc9929c338f2ec16a3226fdcdba2963355921dfd937b088dc910f
+    sha256: 48b0d713006b4dee39743e625f8e5fd9a3add1019f9ced4e952028cbf1412ea3
     folder: graal
     patches:
       - patches/sulong-disable-tests.patch
       - patches/sulong-relative-rpath.patch
   - url: https://github.com/oracle/graalpython/archive/refs/tags/vm-ce-{{ version }}.zip
-    sha256: 74ab48769e63b7fafa5eaac0f8062e48d188567d2abd0e4af91871e48a5200d0
+    sha256: 2d1de59940f41184bb50ed3bff35fd01f0089e6d4c4e4f2a0b80d9d78d48917b
     folder: graalpython
     patches:
       - patches/graalpy-honour-sysroot.patch
