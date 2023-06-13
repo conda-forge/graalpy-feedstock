@@ -35,18 +35,14 @@ source:
   - url: https://github.com/graalvm/mx/archive/refs/tags/{{ mx_version }}.zip
     sha256: 4fb692a1ec34dfc957832a948a41b4d0238377990a0098daf83240e837638cfe
     folder: mx
-  # - url: https://github.com/oracle/graal/archive/refs/tags/vm-ce-{{ version }}.zip
-  #   sha256: 5e65db23299ba21ff6a412eb1ab840b3c05be3d047b0d73eb67b05a5ba3ea2fb
-  - git_url: https://github.com/oracle/graal.git
-    git_rev: release/graal-vm/{{ graalpy_maj_min }}
+  - url: https://github.com/oracle/graal/archive/refs/tags/vm-ce-{{ version }}.zip
+    sha256: 48b0d713006b4dee39743e625f8e5fd9a3add1019f9ced4e952028cbf1412ea3
     folder: graal
     patches:
       - patches/sulong-without-tck.patch
       - patches/graal-omit-libjli-loading.patch
-  # - url: https://github.com/oracle/graalpython/archive/refs/tags/vm-ce-{{ version }}.zip
-  #   sha256: 9a01e90a9a0edefb1c99583413936408239c9d4c67a65e142647f30558e8be6a
-  - git_url: https://github.com/oracle/graalpython.git
-    git_rev: release/graal-vm/{{ graalpy_maj_min }}
+  - url: https://github.com/oracle/graalpython/archive/refs/tags/vm-ce-{{ version }}.zip
+    sha256: 2d1de59940f41184bb50ed3bff35fd01f0089e6d4c4e4f2a0b80d9d78d48917b
     folder: graalpython
 
 build:
