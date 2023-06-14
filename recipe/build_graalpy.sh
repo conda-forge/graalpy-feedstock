@@ -7,7 +7,7 @@ if [ `uname` = "Darwin" ]; then
 fi
 
 # this needs to be updated when the target python version of graalpy changes
-PY_VERSION=3.8
+PY_VERSION=3.10
 
 # set up paths for mx build
 export MX_DIR=$SRC_DIR/mx
@@ -50,10 +50,12 @@ git -C $SRC_DIR/graal commit --allow-empty -m "dummy commit"
 # released graal/mx/mx.vm/ce env file
 export MX_PYTHON=${BUILD_PREFIX}/bin/pypy3
 export DYNAMIC_IMPORTS=/compiler,/regex,/sdk,/substratevm,/sulong,/tools,/truffle,graalpython
-export COMPONENTS=cmp,cov,dap,dis,gu,gvm,icu4j,ins,insight,insightheap,lg,llp,llrc,llrl,llrn,lsp,nfi-libffi,pbm,pmh,poly,polynative,pro,pyn,pynl,rgx,sdk,tfl,tflm
+export COMPONENTS=cmp,cov,dap,dis,gu,gvm,icu4j,ins,insight,insightheap,jss,lg,llp,llrc,llrl,llrn,lsp,nfi-libffi,pbm,pmh,poly,polynative,pro,pyn,pynl,rgx,sdk,tfl,tflm
 if [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
+    # standalones need svm images for python
     export NATIVE_IMAGES=lib:pythonvm,lib:jvmcicompiler,graalvm-native-binutil,graalvm-native-clang,graalvm-native-clang-cl,graalvm-native-clang++,graalvm-native-ld
 else
+    # TODO: cannot currently build python svm images on normal linux CI machines, they have not enough RAM
     export NATIVE_IMAGES=lib:jvmcicompiler,graalvm-native-binutil,graalvm-native-clang,graalvm-native-clang-cl,graalvm-native-clang++,graalvm-native-ld
 fi
 export DISABLE_INSTALLABLES=False
@@ -67,7 +69,7 @@ fi
 
 # run the build
 mx graalvm-show
-mx build
+mx --generate-debuginfo= build
 
 if [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
     # move the standalone build artifact into $PREFIX
@@ -96,14 +98,25 @@ if [ -n "${GRAALPY_STANDALONE_BUILD}" ]; then
 else
     GRAALVM=`mx graalvm-home`
     mkdir -p $PREFIX/lib/jvm
-    cp -r $GRAALVM $PREFIX/lib/jvm/
-    GRAALVM_PREFIX=$PREFIX/lib/jvm/${GRAALVM##*/}
+    cp -r $GRAALVM/* $PREFIX/lib/jvm/
+    GRAALVM_PREFIX=$PREFIX/lib/jvm/
 
-    # symlink binaries
+    # just symlink binaries
     mkdir -p $PREFIX/bin/
     for i in $GRAALVM_PREFIX/bin/*; do
         if [ -x "$i" ]; then
             ln -sf "$i" $PREFIX/bin/
+        fi
+    done
+
+    # for all binaries that exist in nested binary directories and that are
+    # either copied or symlinked to the main bin directory, create symlinks to
+    # the actual binary locations
+    for i in $GRAALVM_PREFIX/*/*/bin/*; do
+        if [ -x "$i" ]; then
+            if [ -e "${GRAALVM_PREFIX}/bin/${i##*/}" ]; then
+                ln -sf "$i" $PREFIX/bin/
+            fi
         fi
     done
 

@@ -1,0 +1,18 @@
+diff --git a/sdk/src/org.graalvm.launcher.native/src/launcher.cc b/sdk/src/org.graalvm.launcher.native/src/launcher.cc
+index e7a8a543c95..e17eff64420 100644
+--- a/sdk/src/org.graalvm.launcher.native/src/launcher.cc
++++ b/sdk/src/org.graalvm.launcher.native/src/launcher.cc
+@@ -448,13 +448,6 @@ int main(int argc, char *argv[]) {
+     }
+ 
+ #if defined (__APPLE__)
+-    if (jvmMode) {
+-        if (!load_jli_lib(exeDir)) {
+-            std::cerr << "Loading libjli failed." << std::endl;
+-            return -1;
+-        }
+-    }
+-
+     struct MainThreadArgs args = { argc, argv, exeDir, jvmModeEnv, jvmMode, libPath};
+ 
+     /* Inherit stacksize of main thread. Otherwise pthread_create() defaults to

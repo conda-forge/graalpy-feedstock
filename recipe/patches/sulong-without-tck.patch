@@ -1,0 +1,12 @@
+diff --git a/sulong/mx.sulong/suite.py b/sulong/mx.sulong/suite.py
+index f49774c7805..15f6a6faa41 100644
+--- a/sulong/mx.sulong/suite.py
++++ b/sulong/mx.sulong/suite.py
+@@ -253,7 +253,6 @@ suite = {
+       ],
+       "buildDependencies" : [
+         "NATIVE_MODE_SUPPORT",
+-        "SULONG_TCK_NATIVE",
+       ],
+       "checkstyle" : "com.oracle.truffle.llvm.runtime",
+       "javaCompliance" : "17+",
