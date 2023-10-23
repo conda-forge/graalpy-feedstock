@@ -1,5 +1,5 @@
 # the graalpy version implies the below versions, so update these together
-{% set version = "23.0.0" %}
+{% set version = "23.0.2" %}
 {% set gp_python_version = "3.10.8" %}
 {% set mx_version = "6.23.8" %}
 {% set java_version = "17.0.7+4" %}
@@ -36,13 +36,13 @@ source:
     sha256: 4fb692a1ec34dfc957832a948a41b4d0238377990a0098daf83240e837638cfe
     folder: mx
   - url: https://github.com/oracle/graal/archive/refs/tags/vm-ce-{{ version }}.zip
-    sha256: 48b0d713006b4dee39743e625f8e5fd9a3add1019f9ced4e952028cbf1412ea3
+    sha256: 57a7564c9c9c3e15c4ec428d2b78975a7adf3bc8ba49b5c3845ae3238b2409f8
     folder: graal
     patches:
       - patches/sulong-without-tck.patch
       - patches/graal-omit-libjli-loading.patch
   - url: https://github.com/oracle/graalpython/archive/refs/tags/vm-ce-{{ version }}.zip
-    sha256: 2d1de59940f41184bb50ed3bff35fd01f0089e6d4c4e4f2a0b80d9d78d48917b
+    sha256: 700964cc7bbb0e488403546af6e7c1549dc507aa111b4eca1d07529559478cb1
     folder: graalpython
 
 build:
