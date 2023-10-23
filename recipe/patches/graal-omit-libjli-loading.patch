@@ -1,8 +1,8 @@
 diff --git a/sdk/src/org.graalvm.launcher.native/src/launcher.cc b/sdk/src/org.graalvm.launcher.native/src/launcher.cc
-index e7a8a543c95..e17eff64420 100644
+index 9ebbdfd820a..cb792538494 100644
 --- a/sdk/src/org.graalvm.launcher.native/src/launcher.cc
 +++ b/sdk/src/org.graalvm.launcher.native/src/launcher.cc
-@@ -625,13 +625,6 @@ int main(int argc, char *argv[]) {
+@@ -623,13 +623,6 @@ int main(int argc, char *argv[]) {
      }
  
  #if defined (__APPLE__)
@@ -13,6 +13,7 @@ index e7a8a543c95..e17eff64420 100644
 -        }
 -    }
 -
-     struct MainThreadArgs args = { argc, argv, exeDir, jvmModeEnv, jvmMode, libPath};
+     struct MainThreadArgs args = { argc, argv, exeDir, jvmMode, libPath};
  
      /* Inherit stacksize of main thread. Otherwise pthread_create() defaults to
+
