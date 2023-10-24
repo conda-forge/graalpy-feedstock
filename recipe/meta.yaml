@@ -1,17 +1,18 @@
 # the graalpy version implies the below versions, so update these together
-{% set version = "23.0.0" %}
+{% set version = "23.1.0" %}
 {% set gp_python_version = "3.10.8" %}
-{% set mx_version = "6.23.8" %}
-{% set java_version = "17.0.7+4" %}
-{% set jvmci_version = "23.0-b10" %}
+{% set mx_version = "6.50.2" %}
+{% set java_version = "21+35" %}
+{% set jvmci_version = "23.1-b15" %}
 
 {% if graalpy_distribution is not defined %}
-{% set graalpy_distribution = "standalone" %}
+{% set graalpy_distribution = "jvm" %}
 {% endif %}
 
 # Keep increasing the build_num until we get a new graalpy version. Do not reset
 {% set build_num = "0" %}
 
+{% set java_major = java_version.split("+")[0] %}
 {% set python_maj_min = ".".join(gp_python_version.split(".")[:2]) %}
 {% set graalpy_maj_min = ".".join(version.split(".")[:2]) %}
 {% set graalpy_abi = "native" %}
@@ -21,33 +22,32 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-linux-aarch64.tar.gz  # [build_platform == "linux-aarch64"]
-    sha256: 401e3dd488c4f4b14823fa4a34e7b2d9d5e61d7a6d13c19b6cea6bd48ce090f8  # [build_platform == "linux-aarch64"]
-  - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-linux-amd64.tar.gz  # [build_platform == "linux-64"]
-    sha256: 535b9302daa8a054d5419c4c38b2a056205cacb341ff768b19929bcb6e0edeef  # [build_platform == "linux-64"]
-  - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-darwin-amd64.tar.gz  # [osx and x86_64]
-    sha256: 0daed0d320ba9173e5ee76da13c554539a65f71ca19ab60c30ec2508799befec  # [osx and x86_64]
-  - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-darwin-aarch64.tar.gz  # [osx and arm64]
-    sha256: cb5b5e600e6ef3642c3d1df99d693537690372017f31cd0943a5b97f86727e42  # [osx and arm64]
-  - url: https://github.com/graalvm/labs-openjdk-{{ java_version.split(".")[0] }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-windows-amd64.tar.gz  # [win64]
-    sha256: fb349ddc10bc1cebe5e95460859bfcb878da3be43481e914ab3894c689f552e3  # [win64]
+  - url: https://github.com/graalvm/labs-openjdk-{{ java_major }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-linux-aarch64.tar.gz  # [build_platform == "linux-aarch64"]
+    sha256: c68f3b88b32204058fda6e721b8a85dd2ddd0ecb75fdba165febb3e92e310e16  # [build_platform == "linux-aarch64"]
+  - url: https://github.com/graalvm/labs-openjdk-{{ java_major }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-linux-amd64.tar.gz  # [build_platform == "linux-64"]
+    sha256: 175e5308c88eb518c59b48a8bbc23ac01a2bd6b908472b0e9fb4b830bfffb6ee  # [build_platform == "linux-64"]
+  - url: https://github.com/graalvm/labs-openjdk-{{ java_major }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-darwin-amd64.tar.gz  # [osx and x86_64]
+    sha256: b20ec7e744c0703e7196efce58e4625f217edf28218530c93630ede9b458b6c7  # [osx and x86_64]
+  - url: https://github.com/graalvm/labs-openjdk-{{ java_major }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-darwin-aarch64.tar.gz  # [osx and arm64]
+    sha256: 5dcf8d842e88c75c50fe6a35bfa618efc74594f6dc33590a898c2a0bf516f0c5  # [osx and arm64]
+  - url: https://github.com/graalvm/labs-openjdk-{{ java_major }}/releases/download/jvmci-{{ jvmci_version }}/labsjdk-ce-{{ java_version }}-jvmci-{{ jvmci_version }}-windows-amd64.tar.gz  # [win64]
+    sha256: 80fffa49bfa57e0db27e48a026f2bf3a80392bfd1080a16362dde58f6a868577  # [win64]
     folder: labsjdk
   - url: https://github.com/graalvm/mx/archive/refs/tags/{{ mx_version }}.zip
-    sha256: 4fb692a1ec34dfc957832a948a41b4d0238377990a0098daf83240e837638cfe
+    sha256: 1b25d91e98e9f248430058cb5ec35c65cf2037f5f1bf3fac4b15b6d2effeef3a
     folder: mx
-  - url: https://github.com/oracle/graal/archive/refs/tags/vm-ce-{{ version }}.zip
-    sha256: 48b0d713006b4dee39743e625f8e5fd9a3add1019f9ced4e952028cbf1412ea3
+  - url: https://github.com/oracle/graal/archive/refs/tags/vm-{{ version }}.zip
+    sha256: 61d82cb5e831ec78cad445bf86ae51e31b7762fc4d53ded0b818d0ae5697466e
     folder: graal
     patches:
       - patches/sulong-without-tck.patch
       - patches/graal-omit-libjli-loading.patch
-  - url: https://github.com/oracle/graalpython/archive/refs/tags/vm-ce-{{ version }}.zip
-    sha256: 2d1de59940f41184bb50ed3bff35fd01f0089e6d4c4e4f2a0b80d9d78d48917b
+  - url: https://github.com/oracle/graalpython/archive/refs/tags/vm-{{ version }}.zip
+    sha256: b85170e2713b1501a4eac9d92b2eecaa9932475bc04fcc4437b9ab30834f588e
     folder: graalpython
 
 build:
   number: {{ build_num }}
-  skip: true  # [win or osx]
 
 outputs:
   - name: graalpy
@@ -58,10 +58,12 @@ outputs:
         - '*.py'
       number: {{ build_num }}
       string: {{ build_num }}_{{ graalpy_distribution }}_{{ graalpy_abi }}
-      track_features:   # [graalpy_distribution == "graalvm"]
-        - openjdk  # [graalpy_distribution == "graalvm"]
-      script_env:   # [graalpy_distribution == "standalone"]
-        - GRAALPY_STANDALONE_BUILD=true  # [graalpy_distribution == "standalone"]
+      script_env:
+        - GRAALPY_DISTRIBUTION=PYTHON_JAVA_STANDALONE_SVM_JAVA{{ java_major }}  # [graalpy_distribution == "jvm"]
+        - GRAALPY_DISTRIBUTION=PYTHON_NATIVE_STANDALONE_SVM_JAVA{{ java_major }}  # [graalpy_distribution == "native"]
+        - GRAALPY_DISTRIBUTION_TYPE={{ graalpy_distribution }}
+        - PY_VERSION={{ python_maj_min }}
+        - MACOS=true  # [osx]
       run_exports:
         weak:
           - graalpy >={{ version }}
@@ -128,41 +130,6 @@ outputs:
         - pip -h
         - test $(python -c "import sys; print('.'.join(str(i) for i in sys.version_info[:3]))") == "{{ gp_python_version }}"  # [unix]
         - test $(python -c "import sys; print(sys.implementation.name)") == "graalpy"  # [unix]
-
-  - name: graalpy-graalvm
-    version: {{ version }}
-    build:
-      number: {{ build_num }}
-      skip: true  # [graalpy_distribution == "standalone"]
-    requirements:
-      host:
-        - {{ pin_subpackage('graalpy', exact=True) }}
-      run:
-        - {{ pin_subpackage('graalpy', exact=True) }}
-    test:
-      commands:
-        - java --version
-
-  - name: openjdk
-    version: {{ java_version.replace("+", ".") }}
-    build:
-      number: {{ build_num }}
-      string: {{ build_num }}_graalvm{{ jvmci_version.replace(".", "").replace("-", "") }}
-      track_features:
-        - graalpy-graalvm
-      skip: true  # [graalpy_distribution == "standalone"]
-      run_exports:
-        weak:
-          - graalpy-graalvm >={{ graalpy_maj_min }}
-    requirements:
-      host:
-        - {{ pin_subpackage("graalpy-graalvm", exact=True) }}
-      run:
-        - {{ pin_subpackage("graalpy-graalvm", exact=True) }}
-    test:
-      commands:
-        - java --version
-        - javac --version
 
 about:
   home: http://graalvm.org/python
