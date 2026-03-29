@@ -28,10 +28,45 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64</td>
+              <td>linux_64_graalpy_distributionjvm</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18438&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/graalpy-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/graalpy-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_graalpy_distributionjvm" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_graalpy_distributionnative</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18438&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/graalpy-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_graalpy_distributionnative" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_graalpy_distributionjvm</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18438&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/graalpy-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_graalpy_distributionjvm" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_graalpy_distributionnative</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18438&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/graalpy-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_graalpy_distributionnative" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_graalpy_distributionjvm</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18438&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/graalpy-feedstock?branchName=main&jobName=win&configuration=win%20win_64_graalpy_distributionjvm" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_graalpy_distributionnative</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=18438&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/graalpy-feedstock?branchName=main&jobName=win&configuration=win%20win_64_graalpy_distributionnative" alt="variant">
                 </a>
               </td>
             </tr>
@@ -48,8 +83,6 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-graalpy-green.svg)](https://anaconda.org/conda-forge/graalpy) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/graalpy.svg)](https://anaconda.org/conda-forge/graalpy) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/graalpy.svg)](https://anaconda.org/conda-forge/graalpy) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/graalpy.svg)](https://anaconda.org/conda-forge/graalpy) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-graalpy--graalvm-green.svg)](https://anaconda.org/conda-forge/graalpy-graalvm) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/graalpy-graalvm.svg)](https://anaconda.org/conda-forge/graalpy-graalvm) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/graalpy-graalvm.svg)](https://anaconda.org/conda-forge/graalpy-graalvm) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/graalpy-graalvm.svg)](https://anaconda.org/conda-forge/graalpy-graalvm) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-openjdk-green.svg)](https://anaconda.org/conda-forge/openjdk) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/openjdk.svg)](https://anaconda.org/conda-forge/openjdk) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/openjdk.svg)](https://anaconda.org/conda-forge/openjdk) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/openjdk.svg)](https://anaconda.org/conda-forge/openjdk) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-python-green.svg)](https://anaconda.org/conda-forge/python) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/python.svg)](https://anaconda.org/conda-forge/python) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/python.svg)](https://anaconda.org/conda-forge/python) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/python.svg)](https://anaconda.org/conda-forge/python) |
 
 Installing graalpy
@@ -62,16 +95,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `graalpy, graalpy-graalvm, openjdk, python` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `graalpy, python` can be installed with `conda`:
 
 ```
-conda install graalpy graalpy-graalvm openjdk python
+conda install graalpy python
 ```
 
 or with `mamba`:
 
 ```
-mamba install graalpy graalpy-graalvm openjdk python
+mamba install graalpy python
 ```
 
 It is possible to list all of the versions of `graalpy` available on your platform with `conda`:

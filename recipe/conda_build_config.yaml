@@ -1,6 +1,6 @@
 graalpy_distribution:
-  # - standalone
-  - graalvm
+  - jvm
+  - native
 
 ignore_version:
   - python
