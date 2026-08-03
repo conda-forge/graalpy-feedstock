@@ -1,0 +1,22 @@
+c_compiler:
+- vs2019
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+curl:
+- '8'
+cxx_compiler:
+- vs2019
+graalpy_distribution:
+- native
+pin_run_as_build:
+  python:
+    min_pin: x.x
+    max_pin: x.x
+python:
+- '2.7'
+target_platform:
+- win-64
+zlib:
+- '1.2'
